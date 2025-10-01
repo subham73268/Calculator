@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stylish Calculator</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+    }
+    .calculator {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    input {
+      width: 100%;
+      height: 60px;
+      text-align: right;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.5);
+      outline: none;
+      padding: 10px;
+      background: #fffdfdcc;
+      box-sizing: border-box;
+      box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1),
+                  inset -2px -2px 5px rgba(255,255,255,0.7);
+    }
+    .buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    .numbers {
+      display: grid;
+      grid-template-columns: repeat(3, 70px);
+      gap: 12px;
+    }
+    .operators {
+      display: grid;
+      grid-template-columns: repeat(2, 70px);
+      gap: 12px;
+    }
+    button {
+      height: 60px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.7);
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      box-shadow: 3px 3px 7px rgba(0,0,0,0.15),
+                  -3px -3px 7px rgba(255,255,255,0.6);
+    }
+    button:hover {
+      background: rgba(255,255,255,0.9);
+      transform: translateY(-2px);
+    }
+    button:active {
+      transform: scale(0.95);
+      box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2);
+    }
+    .equal {
+      background: linear-gradient(135deg, #ff7eb3, #ff758c);
+      color: white;
+      font-weight: bold;
+      box-shadow: 3px 3px 10px rgba(0,0,0,0.3),
+                  -3px -3px 10px rgba(255,255,255,0.5);
+    }
+    .equal:hover {
+      background: linear-gradient(135deg, #ff5d9e, #ff4b80);
+    }
+    .clear {
+      background: #ff4b5c;
+      color: white;
+      font-weight: bold;
+    }
+    .clear:hover {
+      background: #e63946;
+    }
+    .operator {
+      background: #48cae4;
+      color: white;
+      font-weight: bold;
+    }
+    .operator:hover {
+      background: #0096c7;
+    }
+    .backspace {
+      background: #f4a261;
+      color: white;
+      font-weight: bold;
+    }
+    .backspace:hover {
+      background: #e76f51;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="result" disabled>
+    <div class="buttons">
+      <!-- Left side: Numbers -->
+      <div class="numbers">
+        <button onclick="appendValue('7')">7</button>
+        <button onclick="appendValue('8')">8</button>
+        <button onclick="appendValue('9')">9</button>
+        <button onclick="appendValue('4')">4</button>
+        <button onclick="appendValue('5')">5</button>
+        <button onclick="appendValue('6')">6</button>
+        <button onclick="appendValue('1')">1</button>
+        <button onclick="appendValue('2')">2</button>
+        <button onclick="appendValue('3')">3</button>
+        <button onclick="appendValue('0')">0</button>
+        <button onclick="appendValue('.')">.</button>
+        <button onclick="appendValue('00')">00</button>
+      </div>
+
+      <!-- Right side: Operators -->
+      <div class="operators">
+        <button class="clear" onclick="clearResult()">C</button>
+        <button class="backspace" onclick="backspace()">←</button>
+        <button class="operator" onclick="appendValue('+')">+</button>
+        <button class="operator" onclick="appendValue('-')">-</button>
+        <button class="operator" onclick="appendValue('*')">×</button>
+        <button class="operator" onclick="appendValue('/')">/</button>
+        <button class="operator" onclick="appendValue('%')">%</button>
+        <button class="equal" onclick="calculateResult()">=</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function appendValue(value) {
+      document.getElementById("result").value += value;
+    }
+    function clearResult() {
+      document.getElementById("result").value = "";
+    }
+    function backspace() {
+      let val = document.getElementById("result").value;
+      document.getElementById("result").value = val.slice(0, -1);
+    }
+    function calculateResult() {
+      try {
+        document.getElementById("result").value = eval(document.getElementById("result").value);
+      } catch {
+        document.getElementById("result").value = "Error";
+      }
+    }
+  </script>
+</body>
+</html>
